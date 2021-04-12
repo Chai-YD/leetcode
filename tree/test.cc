@@ -40,8 +40,10 @@ void demo_inorder_traversal()
 void demo_geterate_tree()
 {
 	solution sol;
-	vector<TreeNode *> vec = sol.generateTree(3);
-	if (vec.size() == 5) {
+	int n = 3;
+	vector<TreeNode *> vec = sol.generateTree(n);
+	//cout << "size : "<< vec.size() << " " <<sol.numTrees(n) <<endl;
+	if (vec.size() == sol.numTrees(n)) {
 		cout << "demo_geterate_tree ==> [ok]" << endl;
 	}
 	else {

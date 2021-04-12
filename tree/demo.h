@@ -38,6 +38,10 @@ public:
 	vector<TreeNode *> _generateTree(int start, int end);
 	vector<TreeNode *> generateTree(int n);
 
+	/* 不同的二叉搜索树
+	 * 描述：给定一个整数n， 求以1...n为节点组成的二叉搜索树有多少种*/
+	int numTrees(int n);
+
 	/* 描述： 打印vector */
 	void print(vector<int> &vec);
 	void print_tree(TreeNode *root);

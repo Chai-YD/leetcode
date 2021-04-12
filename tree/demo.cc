@@ -70,6 +70,31 @@ vector<TreeNode *> solution::generateTree(int n)
 {
 	return _generateTree(1, n);
 }
+
+int solution::numTrees(int n)
+{
+	if (n < 1) {
+		return 0;
+	}
+	if (n == 1) {
+		return 1;
+	}
+
+	vector<int> vec(n+1);
+
+	vec[0] = 1;
+	vec[1] = 1;
+	vec[2] = 2;
+
+	for (int ix = 3; ix <= n; ix++) {
+		for (int left = 0; left < ix; left++){
+			vec[ix] += vec[left] * vec[ix - left - 1];
+		}
+	}
+
+	return vec[n];
+}
+
 void solution::print_tree(TreeNode *root)
 {
 	if (!root) {
@@ -77,7 +102,7 @@ void solution::print_tree(TreeNode *root)
 		return;
 	}
 	/* 先序遍历 */
-	cout << root->val <<" ";
+	cout << root->val << " ";
 	if (root->left == NULL && root->right == NULL) {
 		return;
 	}
