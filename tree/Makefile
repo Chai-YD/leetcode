@@ -1,9 +1,11 @@
+OBJ="test"
+FLAG="-g"
 
-.PHONY: demo
-all: clean demo
+.PHONY:${OBJ} 
+all: clean ${OBJ} 
 
-demo:
-	g++ demo.cc -o demo
+${OBJ}:
+	g++  test.cc demo.cc -o ${OBJ} ${FLAG} 
 
 clean:
-	rm -rf demo
+	rm -rf ${OBJ} 
