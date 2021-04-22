@@ -14,6 +14,26 @@
 #include <iostream>
 #include "demo.h"
 
+int solution::__do_get_depth(TreeNode *root)
+{
+	if (!root) {
+		return 0;
+	}
+
+	return 1 + max(__do_get_depth(root->left), __do_get_depth(root->right));
+}
+bool solution::isBalanced(TreeNode *root)
+{
+	if (!root) {
+		return true;
+	}
+
+	if (abs(__do_get_depth(root->left) - __do_get_depth(root->right)) > 1) {
+		return false;
+	}
+
+	return isBalanced(root->right) && isBalanced(root->left); 
+}
 TreeNode *solution::sortedListToBST(ListNode *head)
 {
 	TreeNode *root = NULL;

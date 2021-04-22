@@ -218,7 +218,26 @@ void demo_sortedListToBST()
 	solution sol;
 	TreeNode *root = sol.sortedListToBST(Plist5);
 	sol.print_tree(root);
-	
+
+}
+
+void demo_isBalanced()
+{
+	TreeNode *pnode_4 = new TreeNode(15);
+	TreeNode *pnode_5 = new TreeNode(7);
+	TreeNode *pnode_6 = new TreeNode(9);
+	TreeNode *pnode_7 = new TreeNode(20, pnode_4, pnode_5);
+	TreeNode *pnode_3 = new TreeNode(3, pnode_6, pnode_7);
+
+	solution sol;
+	bool flag = sol.isBalanced(pnode_3);
+
+	if (flag) {
+		cout << "demo_isBalanced [ok]" << endl;
+	}
+	else {
+		cout << "demo_isBalanced [err]" << endl;
+	}
 }
 
 int main(int argc, char *argv[])
@@ -232,6 +251,7 @@ int main(int argc, char *argv[])
 	//demo_buildTree_ex();
 	//demo_levelOrderBottom();
 	//demo_sortedArrayToBST();
-	demo_sortedListToBST();
+	//demo_sortedListToBST();
+	demo_isBalanced();
 	return 0;
 }
