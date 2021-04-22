@@ -150,6 +150,63 @@ void demo_buildTree()
 	sol.print_tree(root);
 }
 
+void demo_buildTree_ex()
+{
+	solution sol;
+	vector<int> postorder;
+	vector<int> inorder;
+	postorder.push_back(9);
+	postorder.push_back(15);
+	postorder.push_back(7);
+	postorder.push_back(20);
+	postorder.push_back(3);
+	inorder.push_back(9);
+	inorder.push_back(3);
+	inorder.push_back(15);
+	inorder.push_back(20);
+	inorder.push_back(7);
+	TreeNode *root = sol.buildTree(inorder, postorder);
+	sol.print_tree(root);
+}
+
+void demo_levelOrderBottom()
+{
+	TreeNode *pnode_4 = new TreeNode(15);
+	TreeNode *pnode_5 = new TreeNode(7);
+	TreeNode *pnode_6 = new TreeNode(9);
+	TreeNode *pnode_7 = new TreeNode(20, pnode_4, pnode_5);
+	TreeNode *pnode_3 = new TreeNode(3, pnode_6, pnode_7);
+
+	solution sol;
+	vector< vector<int>> vec = sol.levelOrderBottom(pnode_3);
+	for (int ix = 0; ix < vec.size(); ix++) {
+		for (int jx = 0; jx < vec[ix].size(); jx++) {
+			cout << vec[ix][jx] << " ";
+		}
+		cout << endl;
+	}
+
+	delete pnode_3;
+	delete pnode_4;
+	delete pnode_5;
+	delete pnode_6;
+	delete pnode_7;
+}
+
+void demo_sortedArrayToBST()
+{
+	vector<int> vec;
+	vec.push_back(-10);
+	vec.push_back(-3);
+	vec.push_back(0);
+	vec.push_back(5);
+	vec.push_back(9);
+	solution sol;
+	TreeNode *root = sol.sortedArrayToBST(vec);
+	sol.print_tree(root);
+
+}
+
 int main(int argc, char *argv[])
 {
 	//demo_inorder_traversal();
@@ -157,6 +214,9 @@ int main(int argc, char *argv[])
 	//demo_levelOrder();
 	//demo_zigzagLevelOrder();
 	//demo_maxDepth();
-	demo_buildTree();
+	//demo_buildTree();
+	//demo_buildTree_ex();
+	//demo_levelOrderBottom();
+	demo_sortedArrayToBST();
 	return 0;
 }

@@ -14,8 +14,113 @@
 #include <iostream>
 #include "demo.h"
 
+TreeNode *solution::__do_sortedArrayToBST(vector<int> &nums, int begin, int end)
+{
+	if (begin >= end) {
+		return NULL;
+	}
+
+	TreeNode *cur = new TreeNode(nums[(begin + end) / 2]);
+	cur->left = __do_sortedArrayToBST(nums, begin, (begin + end) / 2);
+	cur->right = __do_sortedArrayToBST(nums, (begin + end) / 2 + 1, end);
+
+	return cur;
+}
+
+TreeNode *solution::sortedArrayToBST(vector<int> &nums)
+{
+	TreeNode *root = NULL;
+	if (nums.size() == 0) {
+		return NULL;
+	}
+	root = __do_sortedArrayToBST(nums, 0, nums.size());
+
+	return root;
+}
+
+vector<vector<int>> solution::levelOrderBottom(TreeNode *root)
+{
+	vector<vector<int>> ret;
+	if (!root) {
+		return ret;
+	}
+
+	stack<vector<int>> sta;
+	queue<TreeNode *> que1;
+	queue<TreeNode *> que2;
+
+	que1.push(root);
+	while (!que1.empty() || !que2.empty()) {
+		vector<int> tmp;
+
+		if (!que1.empty()) {
+			while (!que1.empty()) {
+				tmp.push_back(que1.front()->val);
+				if (que1.front()->left != NULL) {
+					que2.push(que1.front()->left);
+				}
+				if (que1.front()->right != NULL) {
+					que2.push(que1.front()->right);
+				}
+				que1.pop();
+			}
+		}
+		else {
+			while (!que2.empty()) {
+				tmp.push_back(que2.front()->val);
+				if (que2.front()->left != NULL) {
+					que1.push(que2.front()->left);
+				}
+				if (que2.front()->right != NULL) {
+					que1.push(que2.front()->right);
+				}
+				que2.pop();
+			}
+		}
+		sta.push(tmp);
+	}
+
+	while (!sta.empty()) {
+		ret.push_back(sta.top());
+		sta.pop();
+	}
+
+	return ret;
+}
+
+TreeNode *solution::__do_buildTree_ex(vector<int> &inorder, int ibegin, int iend,
+									  vector<int> &postorder, int pbegin, int pend)
+{
+	if (pbegin >= pend) {
+		return NULL;
+	}
+	TreeNode *cur = new TreeNode(postorder[pend - 1]);
+
+	int ix = 0;
+	for (ix = ibegin; ix < iend; ix++) {
+		if (inorder[ix] == postorder[pend - 1]) {
+			break;
+		}
+	}
+
+	cur->left = __do_buildTree_ex(inorder, ibegin, ix, postorder, pbegin, pbegin + ix - ibegin);
+	cur->right = __do_buildTree_ex(inorder, ix + 1, iend, postorder, pbegin + ix - ibegin, pend - 1);
+
+	return cur;
+}
+TreeNode *solution::buildTree_ex(vector<int> &inorder, vector<int> &postorder)
+{
+	if (inorder.size() != postorder.size()) {
+		return NULL;
+	}
+
+	TreeNode *root = __do_buildTree_ex(inorder, 0, inorder.size(), postorder, 0, postorder.size());
+
+	return root;
+}
+
 TreeNode *solution::__do_buildTree(vector<int> &preorder, int pbegin, int pend,
-						 vector<int> &inorder, int ibegin, int iend)
+								   vector<int> &inorder, int ibegin, int iend)
 {
 	if (pbegin >= pend) {
 		return NULL;

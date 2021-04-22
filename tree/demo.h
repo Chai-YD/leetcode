@@ -62,7 +62,25 @@ public:
 	 * 注意： 假设树中没有重复的元素*/
 	TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder);
 	TreeNode *__do_buildTree(vector<int> &preorder, int pbegin, int pend,
-							 vector<int> &inorder, int istart, int rend);
+							 vector<int> &inorder, int ibegin, int iend);
+
+	/* 从中序与后序遍历序列构造二叉树
+	 * 描述：根据一棵树的中序遍历和后序遍历构建二叉树
+	 * 注意：假设树中没有重复的元素 */
+	TreeNode *buildTree_ex(vector<int> &inorder, vector<int> &postorder);
+	TreeNode *__do_buildTree_ex(vector<int> &inorder, int ibegin, int iend,
+								vector<int> &postorder, int pbegin, int pend);
+
+	/* 二叉树的层序遍历
+	 * 描述：给定一个二叉树，返回其结点自底向上的层序比哪里。(即按从叶子结点所在层到根结点所在层，逐层从左到右遍历)
+	 **/
+	vector<vector<int>> levelOrderBottom(TreeNode* root);
+
+	/* 将有序数组转换为二叉搜索树
+	 * 描述：给一个整数数组nums，其中的元素已经按升序排列，将其转换为一颗高度平和二叉搜索树
+	 * 注：高度平衡，二叉树是一颗满足[每个结点的左右两个子树的高度差的绝对值不超过1]的二叉树 */
+	TreeNode* sortedArrayToBST(vector<int>& nums);
+	TreeNode* __do_sortedArrayToBST(vector<int>& nums, int begin, int end);
 
 	/* 描述： 打印vector */
 	void print(vector<int> &vec);
