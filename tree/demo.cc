@@ -14,6 +14,23 @@
 #include <iostream>
 #include "demo.h"
 
+TreeNode *solution::sortedListToBST(ListNode *head)
+{
+	TreeNode *root = NULL;
+	vector<int> vec;
+
+	if (!head) {
+		return NULL;
+	}
+	ListNode *cur = head;
+	while (cur != NULL) {
+		vec.push_back(cur->val);
+		cur = cur->next;
+	}
+
+	return sortedArrayToBST(vec);
+}
+
 TreeNode *solution::__do_sortedArrayToBST(vector<int> &nums, int begin, int end)
 {
 	if (begin >= end) {

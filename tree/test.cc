@@ -207,6 +207,20 @@ void demo_sortedArrayToBST()
 
 }
 
+void demo_sortedListToBST()
+{
+	ListNode *Plist1 = new ListNode(9);
+	ListNode *Plist2 = new ListNode(5, Plist1);
+	ListNode *Plist3 = new ListNode(0, Plist2);
+	ListNode *Plist4 = new ListNode(-3, Plist3);
+	ListNode *Plist5 = new ListNode(-10, Plist4);
+
+	solution sol;
+	TreeNode *root = sol.sortedListToBST(Plist5);
+	sol.print_tree(root);
+	
+}
+
 int main(int argc, char *argv[])
 {
 	//demo_inorder_traversal();
@@ -217,6 +231,7 @@ int main(int argc, char *argv[])
 	//demo_buildTree();
 	//demo_buildTree_ex();
 	//demo_levelOrderBottom();
-	demo_sortedArrayToBST();
+	//demo_sortedArrayToBST();
+	demo_sortedListToBST();
 	return 0;
 }

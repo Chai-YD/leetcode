@@ -25,6 +25,14 @@ struct TreeNode {
 	TreeNode(int x, TreeNode *pl, TreeNode *pr): val(x), left(pl), right(pr) {}
 };
 
+struct ListNode {
+	int val;
+	ListNode *next;
+	ListNode(): val(0), next(NULL) {}
+	ListNode(int x): val(x), next(NULL) {}
+	ListNode(int x, ListNode *pl): val(x), next(pl) {}
+};
+
 class solution
 {
 public:
@@ -82,6 +90,11 @@ public:
 	TreeNode* sortedArrayToBST(vector<int>& nums);
 	TreeNode* __do_sortedArrayToBST(vector<int>& nums, int begin, int end);
 
+	/* 有序链表转换二叉搜索树
+	 * 描述：给定一个单链表， 其中的元素按升序排序，将其转换为高度平衡的二叉搜索树
+	 * 注：一个高度平衡二叉树是一个二叉树每个结点的左右两个子树的高度差的绝对值不超过1 */
+	TreeNode* sortedListToBST(ListNode* head);
+	
 	/* 描述： 打印vector */
 	void print(vector<int> &vec);
 	void print_tree(TreeNode *root);
