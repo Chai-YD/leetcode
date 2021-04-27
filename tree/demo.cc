@@ -14,6 +14,81 @@
 #include <iostream>
 #include "demo.h"
 
+void solution::handle(Node *&last, Node*&p, Node *&nextstart)
+{
+	if (last) {
+		last->next = p;
+	}
+	if (!nextstart) {
+		nextstart = p;
+	}
+
+	last = p;
+}
+
+Node *solution::connect_ex(Node *root)
+{
+	if (!root) {
+		return root;
+	}
+
+	Node *start = root;
+	while (start != NULL) {
+		Node *last = NULL;
+		Node *nextstart = NULL;
+		for (Node *p = start; p != NULL; p = p->next) {
+			if (p->left) {
+				handle(last, p->left, nextstart);
+			}
+			if (p->right) {
+				handle(last, p->right, nextstart);
+			}
+		}
+		start = nextstart;
+	}
+	return root;
+}
+
+Node *solution::connect(Node *root)
+{
+	if (!root) {
+		return root;
+	}
+
+	Node *leftmost = root;
+	while (leftmost->left != NULL) {
+		Node *head = leftmost;
+		while (head != NULL) {
+			head->left->next = head->right;
+			if (head->next != NULL) {
+				head->right->next = head->next->left;
+			}
+			head = head->next;
+		}
+		leftmost = leftmost->left;
+	}
+	return root;
+}
+
+void solution::flatten(TreeNode *root)
+{
+	TreeNode *cur = root;
+	while (cur != NULL) {
+		if (cur->left != NULL) {
+			auto next = cur->left;
+			auto pre = next;
+			while (pre->right != NULL) {
+				pre = pre->right;
+			}
+			pre->right = cur->right;
+			cur->left = NULL;
+			cur->right = next;
+		}
+		cur = cur->right;
+	}
+	return;
+}
+
 int solution::__do_get_depth(TreeNode *root)
 {
 	if (!root) {
@@ -32,7 +107,7 @@ bool solution::isBalanced(TreeNode *root)
 		return false;
 	}
 
-	return isBalanced(root->right) && isBalanced(root->left); 
+	return isBalanced(root->right) && isBalanced(root->left);
 }
 TreeNode *solution::sortedListToBST(ListNode *head)
 {

@@ -16,6 +16,21 @@
 
 using namespace std;
 
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+
 struct TreeNode {
 	int val;
 	TreeNode *left;
@@ -100,6 +115,31 @@ public:
 	bool isBalanced(TreeNode* root);
 	int __do_get_depth(TreeNode *root);
 	
+	/* 二叉树展开为链表
+	 * 描述：给二叉树的根结点root，请将它展开成一个单链表，
+	 *		1. 展开后的单链表应该同样使用TreeNode，其中right子指针指向
+	 *		链表中下一个结点，而左子结点始终为NULL 
+	 *		2. 展开后的单链表应该与二叉树 先序遍历顺序相同
+	 **/
+	void flatten(TreeNode* root);
+
+	/* 填充每个节点的下一个右侧节点指针
+	 * 描述：给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个节点；
+	 *		1. 填充它的每个next指针，让这个指针指向其下一个右侧节点。如果找不到下
+	 *		一个右侧节点，则将next指针设置为NULL；
+	 *		2. 初始状态下，所有next指针都被设置为NULL；
+	 * */
+	Node* connect(Node* root);
+
+	/* 填充每个节点的下一个右侧节点指针II
+	 * 描述：给定一个二叉树，其所有叶子节点都在同一层，每个父节点都有两个节点；
+	 *		1. 填充它的每个next指针，让这个指针指向其下一个右侧节点。如果找不到下
+	 *		一个右侧节点，则将next指针设置为NULL；
+	 *		2. 初始状态下，所有next指针都被设置为NULL；
+	 * */
+	void handle(Node *&last, Node*&p, Node *&nextstart);
+	Node* connect_ex(Node* root);
+
 	/* 描述： 打印vector */
 	void print(vector<int> &vec);
 	void print_tree(TreeNode *root);

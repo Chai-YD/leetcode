@@ -240,6 +240,84 @@ void demo_isBalanced()
 	}
 }
 
+void demo_flatten()
+{
+	TreeNode *pnode_3 = new TreeNode(3);
+	TreeNode *pnode_4 = new TreeNode(4);
+	TreeNode *pnode_6 = new TreeNode(6);
+	TreeNode *pnode_2 = new TreeNode(2, pnode_3, pnode_4);
+	TreeNode *pnode_5 = new TreeNode(5, NULL, pnode_6);
+	TreeNode *pnode_1 = new TreeNode(1, pnode_2, pnode_5);
+
+	solution sol;
+	sol.flatten(pnode_1);
+	sol.print_tree(pnode_1);
+}
+
+void demo_connect()
+{
+	Node *  pnode_4 = new Node(4);	
+	Node *  pnode_5 = new Node(5);	
+	Node *  pnode_6 = new Node(6);	
+	Node *  pnode_7 = new Node(7);	
+	Node *  pnode_2 = new Node(2, pnode_4, pnode_5, NULL);	
+	Node *  pnode_3 = new Node(3, pnode_6, pnode_7, NULL);	
+	Node *  pnode_1 = new Node(1, pnode_2, pnode_3, NULL);	
+	
+	solution sol;
+	sol.connect(pnode_1);
+	Node *leftmost = pnode_1;
+	while (leftmost){
+		Node *cur = leftmost;
+		while(cur) {
+			cout << cur->val << " ";
+			cur = cur->next;
+		}
+		cout <<endl;
+		leftmost = leftmost->left;
+	}
+	delete pnode_1;
+	delete pnode_2;
+	delete pnode_3;
+	delete pnode_4;
+	delete pnode_5;
+	delete pnode_6;
+	delete pnode_7;
+}
+
+void demo_connect_ex()
+{
+	Node *  pnode_4 = new Node(4);	
+	Node *  pnode_5 = new Node(5);	
+	Node *  pnode_7 = new Node(7);	
+	Node *  pnode_2 = new Node(2, pnode_4, pnode_5, NULL);	
+	Node *  pnode_3 = new Node(3, NULL, pnode_7, NULL);	
+	Node *  pnode_1 = new Node(1, pnode_2, pnode_3, NULL);	
+	
+	solution sol;
+	sol.connect_ex(pnode_1);
+	queue<Node *> que;
+	que.push(pnode_1);
+	while(!que.empty()) {
+		cout << que.front()->val << " ";
+		if (que.front()->left != NULL) {
+			que.push(que.front()->left);
+		}
+		if (que.front()->right != NULL) {
+			que.push(que.front()->right);
+		}
+		que.pop();
+	}
+	cout <<endl;
+	delete pnode_1;
+	delete pnode_2;
+	delete pnode_3;
+	delete pnode_4;
+	delete pnode_5;
+	delete pnode_7;
+}
+
+
 int main(int argc, char *argv[])
 {
 	//demo_inorder_traversal();
@@ -252,6 +330,9 @@ int main(int argc, char *argv[])
 	//demo_levelOrderBottom();
 	//demo_sortedArrayToBST();
 	//demo_sortedListToBST();
-	demo_isBalanced();
+	//demo_isBalanced();
+	//demo_flatten();
+	//demo_connect();
+	demo_connect_ex();
 	return 0;
 }
