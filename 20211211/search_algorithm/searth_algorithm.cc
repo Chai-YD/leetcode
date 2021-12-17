@@ -111,3 +111,32 @@ int search_algorithm::minNumberInRotateArray(vector<int> rotateArray)
 	}
 	return __getMinNum(rotateArray, 0, rotateArray.size() - 1);
 }
+
+void search_alorithm::__Permutation(string str, string begin)
+{
+	if (*begin == '\0') {
+		vec.push_back(str);
+	}
+	else {
+		for (char *ch = begin; *ch != '\0'; ++ch) {
+			char tmp = *ch;
+			*ch = *begin;
+			*begin = tmp;
+
+			__Permutation(str, begin + 1);
+
+			tmp = *ch;
+			*ch = *begin;
+			*begin = tmp;
+		}
+	}
+}
+
+vector<string> search_alorithm::Permutation(string str)
+{
+	if (str.empty()) {
+		return vec;
+	}
+	__Permutation(str,str);
+	return vec;
+}
