@@ -112,23 +112,29 @@ int search_algorithm::minNumberInRotateArray(vector<int> rotateArray)
 	return __getMinNum(rotateArray, 0, rotateArray.size() - 1);
 }
 
-void search_alorithm::__Permutation(string str, string begin)
+void search_alorithm::__Permutation(vector<char> vec, int begin)
 {
-	if (*begin == '\0') {
-		vec.push_back(str);
+	if (vec.size() <= begin) {
+		string tmp(vec.begin(), vec.end());
+		ret_vec.push_back(tmp);
+		return;
 	}
-	else {
-		for (char *ch = begin; *ch != '\0'; ++ch) {
-			char tmp = *ch;
-			*ch = *begin;
-			*begin = tmp;
 
-			__Permutation(str, begin + 1);
+	sort(vec.begin() + begin, vec.end());
 
-			tmp = *ch;
-			*ch = *begin;
-			*begin = tmp;
+	for (int ix = begin; ix < vec.size(); ix++) {
+		if (ix > begin && vec[ix] == vec[ix - 1]) {
+			continue;
 		}
+		//交换
+		char tmp = vec[begin];
+		vec[begin] = vec[ix];
+		vec[ix] = tmp;
+		__Permutation(vec, begin + 1);
+		//还原
+		tmp = vec[begin];
+		vec[begin] = vec[ix];
+		vec[ix] = tmp;
 	}
 }
 
@@ -137,6 +143,10 @@ vector<string> search_alorithm::Permutation(string str)
 	if (str.empty()) {
 		return vec;
 	}
-	__Permutation(str,str);
+	vector<char> vec;
+	for (auto ix : str) {
+		vec.push_back(ix);
+	}
+	__Permutation(vector, 0);
 	return vec;
 }
