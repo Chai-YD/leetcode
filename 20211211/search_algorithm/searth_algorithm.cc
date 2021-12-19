@@ -150,3 +150,33 @@ vector<string> search_alorithm::Permutation(string str)
 	__Permutation(vector, 0);
 	return vec;
 }
+
+int searth_algorithm::findNthDigit(int n)
+{
+	int ix = 1;
+	long long sum = 9;
+	long long base = 1;
+	long long num = n;
+
+	/*
+	 * 1~9		9
+	 * 10~99	90
+	 * 100~999	900
+	 * */
+	while (num - sum * ix > 0) {
+		num -= sum * ix;
+		ix++;
+		sum *= 10;
+		base *= 10;
+	}
+
+	int number = base + (num + ix - 1) / ix - 1;
+	int bit  = (num % ix) ? (num % ix) : ix;
+
+	int cur_ix = ix - bit;
+	while (cur_ix--) {
+		number /= 10;
+	}
+
+	return number % 10;
+}
