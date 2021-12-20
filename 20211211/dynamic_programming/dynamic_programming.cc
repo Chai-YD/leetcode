@@ -70,3 +70,18 @@ int dynamic_programming::jumpFloor(int number)
 
 	return right;
 }
+int dynamic_programming::Fibonacci(int n)
+{
+	if (n == 1 || n == 2) {
+		return 1;
+	}
+	int left = 1;
+	int right = 1;
+	for (int ix = 3; ix <= n; ix++) {
+		int tmp = left + right;
+		left = right;
+		right = tmp;
+	}
+
+	return right;
+}
