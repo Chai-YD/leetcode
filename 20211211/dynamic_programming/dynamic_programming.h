@@ -7,4 +7,5 @@ private:
 public:
 	int FindGreatestSumOfSubArray(vector<int> array);
 	vector<int> FindGreatestSumOfSubArray(vector<int> &array);
+	int jumpFloor(int number);
 };

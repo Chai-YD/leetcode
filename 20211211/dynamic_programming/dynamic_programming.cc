@@ -58,3 +58,15 @@ vector<int> dynamic_programming::FindGreatestSumOfSubArray(vector<int> &array)
 
 	return vec;
 }
+int dynamic_programming::jumpFloor(int number)
+{
+	int left = 1;
+	int right = 1;
+	for (int ix = 2; ix <= number; ix++) {
+		int tmp = left + right;
+		left = right;
+		right = tmp;
+	}
+
+	return right;
+}
