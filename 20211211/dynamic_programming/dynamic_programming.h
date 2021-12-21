@@ -9,4 +9,5 @@ public:
 	vector<int> FindGreatestSumOfSubArray(vector<int> &array);
 	int jumpFloor(int number);
 	int Fibonacci(int n);
+	bool match(string str, string pattern);
 };

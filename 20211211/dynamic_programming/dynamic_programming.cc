@@ -85,3 +85,43 @@ int dynamic_programming::Fibonacci(int n)
 
 	return right;
 }
+
+bool dynamic_programming::__isMatch(const string s, const string p, int i, int j)
+{
+	if(p[j - 1] == '.') return true;
+	return s[i - 1] == p[j - 1];
+}
+
+bool dynamic_programming::match(string str, string pattern)
+{
+	int m = str.length();
+	int n = pattern.length();
+
+	bool dp[m + 1][n + 1];
+	memset(dp, false, sizeof(dp));
+	dp[0][0] = true;
+
+	for (int jx = 2; jx <= n; jx++) {
+		if (pattern[jx - 1] == '*') {
+			dp[0][jx] = dp[0][jx - 2];
+		}
+	}
+
+	for (int ix = 1; ix <= m; ix++) {
+		for (int jx = 1; jx <= n; jx++) {
+			if (pattern[jx - 1] == '*') {
+				dp[ix][jx] |= dp[ix][jx - 2];
+				if (__isMatch(str, pattern, ix, jx - 1)) {
+					dp[ix][jx] |= dp[ix - 1][jx];
+				}
+			}
+			else {
+				if (__isMatch(str, pattern, ix, jx)) {
+					dp[ix][jx] |= dp[ix - 1][jx - 1];
+				}
+			}
+		}
+	}
+
+	return dp[m][n];
+}
