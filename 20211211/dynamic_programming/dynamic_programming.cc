@@ -125,3 +125,24 @@ bool dynamic_programming::match(string str, string pattern)
 
 	return dp[m][n];
 }
+int jumpFloorII(int number)
+{
+	if (number == 1) {
+		return 1;
+	}
+	else if (number == 2) {
+		return 2;
+	}
+	int arr[21] = {0};
+	arr[1] = 1;
+	arr[2] = 2;
+
+	for (int ix = 3; ix <= number; ix++) {
+		for (int jx = ix - 1; jx > 0; jx--) {
+			arr[ix] += arr[jx]; 
+		}
+		arr[ix] += 1;
+	}
+
+	return arr[number];
+}
