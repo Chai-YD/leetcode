@@ -11,4 +11,5 @@ public:
 	int Fibonacci(int n);
 	bool match(string str, string pattern);
 	int jumpFloorII(int number);
+	int rectCover(int numver);
 };

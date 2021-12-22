@@ -1,7 +1,7 @@
 #include "dynamic_programming.h"
 
 
-int dynamic_proramming::FindGreatestSumOfSubArray(vector<int> array)
+int dynamic_programming::FindGreatestSumOfSubArray(vector<int> array)
 {
 	if (array.empty()) {
 		return -1;
@@ -125,7 +125,7 @@ bool dynamic_programming::match(string str, string pattern)
 
 	return dp[m][n];
 }
-int jumpFloorII(int number)
+int dynamic_programming::jumpFloorII(int number)
 {
 	if (number == 1) {
 		return 1;
@@ -145,4 +145,7 @@ int jumpFloorII(int number)
 	}
 
 	return arr[number];
+}
+int dynamic_programming::rectCover(int numver)
+{
 }
