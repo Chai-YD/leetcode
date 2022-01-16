@@ -91,15 +91,78 @@ int mod_sort::InversePairs_ex(vector<int> data)
 	return mergeSort(0, n - 1, data, res);
 }
 
+vector<int> mod_sort::GetLeastNumbers_Solution_ex(vector<int> input, int k)
+{
+	vector<int> ret;
+
+	if (k == 0 || k > input.size()) {
+		return ret;
+	}
+
+	priority_queue<int, vector<int> > pq;
+	for (const int val : input) {
+		if (pq.size() < k) {
+			pq.push(val);
+		}
+		else {
+			if (val < pq.top()) {
+				pq.pop();
+				pq.push(val);
+			}
+		}
+	}
+
+	while (!pq.empty()) {
+		ret.push_back(pq.top());
+		pq.pop();
+	}
+
+	return ret;
+}
+
 vector<int> mod_sort::GetLeastNumbers_Solution(vector<int> input, int k)
 {
+	vector<int> ret;
+	if (k ==0 || K>input.size()) {
+		return ret;
+	}
+	sort(input.begin(), input.end());
+
+	return vector<int>({input.begin(), input.begin() + k});
 }
 
 void mod_sort::Insert(int num)
 {
+	vec.push_back(num);
 }
 
 double mod_sort::GetMedian()
 {
+	sort(vec.begin(), vec.end());
+	int sz = vec.size();
+	if(sz & 1) {
+		return (double)vec[sz >> 1];
+	}
+	else {
+		return (double)(vec[sz>>1] + vec[(sz - 1)>>1])/2;
+	}
+}
+
+void mod_sort::Insert2(int num)
+{
+	min_heap.push(num);
+	
+	max_heap.push(min_heap.top());
+	min_heap.pop();
+
+	if (min_heap.size() < max_heap.size()) {
+		min_heap.push(max_heap.top());
+		max_heap.pop();
+	}
+}
+
+double mod_sort::GetMedian2()
+{
+	return min_heap.size() > max_heap.size() ? (double)(min_heap.top()) : (double)(min_heap.top() + max_heap.top())/2;
 }
 
