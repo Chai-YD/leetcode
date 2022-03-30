@@ -184,8 +184,48 @@ namespace name_4 {
 	}
 };
 
+namespace name_5 {
+	using namespace std;
+	//测试move - 移动构造
+	class example {
+	public:
+		example(const string& str) {
+			cout << "construct" << endl;
+		}
+		~example() {
+			cout << "destroy" << endl;
+		}
+		example(example&& x) {
+			cout << "move" << endl;
+		}
+		example& operator= (example& x) {
+			cout << "= " << endl;
+			return *this;
+		}
+		example& operator= (example&& x) {
+			cout << "move = " << endl;
+			return *this;
+		}
+	};
+	void demo_fun()
+	{
+		example ex("1111");
+		example ex_1 = example("2222");
+		example ex_2(move(ex));
+		ex_2 = move(ex_1);
+		ex_2 = ex_1;
+	}
+};
+
+//命名空间模板
+namespace name_x {
+	void demo_fun()
+	{
+	}
+};
+
 int main()
 {
-	name_4::demo_fun();
+	name_5::demo_fun();
 	return 0;
 }
