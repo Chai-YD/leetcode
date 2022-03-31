@@ -294,10 +294,12 @@ namespace name_8 {
 		~fa ()
 		{
 		}
-		void fun()
+		virtual void f()
 		{
+			cout << "fa::f()" << endl;
 		}
 	private:
+		int fa_a;
 	};
 	class fa1 : virtual public fa{
 	public:
@@ -307,10 +309,16 @@ namespace name_8 {
 		~fa1 ()
 		{
 		}
-		void fun()
+		virtual void f()
 		{
+			cout << "fa1::f()" << endl;
+		}
+		virtual void f1()
+		{
+			cout << "fa1::f1()" << endl;
 		}
 	private:
+		int fa1_a;
 	};
 	class fa2 : virtual public fa{
 	public:
@@ -320,42 +328,114 @@ namespace name_8 {
 		~fa2 ()
 		{
 		}
-		void fun()
+		virtual void f()
 		{
+			cout << "fa2::f()" << endl;
+		}
+		virtual void f2()
+		{
+			cout << "fa2::f2()" << endl;
 		}
 	private:
+		int fa2_a;
 	};
-	class fa3 : public fa{
-	public:
-		fa3 ()
-		{
-		}
-		~fa3 ()
-		{
-		}
-		void fun()
-		{
-		}
-	private:
-	};
-	class ch : public fa1
+	class ch : public fa1, public fa2
 	{
 	public:
 		virtual void fun1()
 		{
+		}
+		virtual void f()
+		{
+			cout << "ch::f()" << endl;
+		}
+		virtual void c()
+		{
+			cout << "ch::c()" << endl;
 		}
 	private:
 		int a;
 	};
 	void demo_fun()
 	{
+		typedef void (*FUN)();
 		class ch t_ch;
-		class fa t_fa;
-		cout << sizeof(t_ch) << endl;
-		cout << sizeof(t_fa) << endl;
-		cout << sizeof(char *) << endl;
+		int ** vbptr = (int **)&t_ch;
+		FUN t_fun = reinterpret_cast<FUN>(vbptr[0][0]);
+		t_fun();
 	}
 };
+namespace name_9 {
+	class example {
+	public:
+		example ()
+		{
+		}
+		~example ()
+		{
+		}
+		virtual void f() = 0;
+	private:
+	};
+	class ch : public example{
+	public:
+		ch()
+		{
+		}
+		~ch()
+		{
+		}
+		void f()
+		{
+			cout << "f" << endl;
+		}
+	private:
+	};
+	void demo_fun()
+	{
+		//包含纯虚函数的类不能进行实例化
+		//class example t_ex;
+		class ch t_Ch;
+	}
+};
+namespace name_10 {
+	//验证构造函数中调用虚函数是否能够实现多态效果
+	//结果： 不能实现多台效果；没有意义
+	class example {
+	public:
+		example ()
+		{
+			f();
+		}
+		~example ()
+		{
+		}
+		virtual void f ()
+		{
+			cout << "example::f()" <<endl;
+		}
+	private:
+	};
+	class ch : public example {
+	public:
+		ch()
+		{
+		}
+		~ch()
+		{
+		}
+		void f ()
+		{
+			cout << "ch::f()" <<endl;
+		}
+	private:
+	};
+	void demo_fun()
+	{
+		class ch t_ch;
+	}
+};
+
 //命名空间模板
 namespace name_x {
 	class example {
@@ -375,6 +455,6 @@ namespace name_x {
 
 int main()
 {
-	name_8::demo_fun();
+	name_10::demo_fun();
 	return 0;
 }
